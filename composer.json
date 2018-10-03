@@ -1,0 +1,17 @@
+{
+    "name": "jonpemby/phlash",
+    "description": "Lodash inspired helper functions for PHP",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^7.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathon Pemberton",
+            "email": "jonpemby@icloud.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

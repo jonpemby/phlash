@@ -73,6 +73,104 @@ class Arr implements Countable, ArrayAccess, Iterator, JsonSerializable
     }
 
     /**
+     * Exclude the elements of this Arr that exist in the given arrays as mapped by the $iteratee
+     *
+     * @param  array[] ...$args  Arrays to check for elements to exclude
+     * @return Arr
+     */
+    public function differenceBy(...$args)
+    {
+        $fn = array_pop($args);
+
+        $diff = [];
+
+        foreach ($this->value as $v) {
+            foreach ($args as $value) {
+                if (! in_array($fn($v), array_map($fn, $value))) $diff[] = $v;
+            }
+        }
+
+        return new Arr($diff);
+    }
+
+    /**
+     * Exclude the elements of this Arr that exist in the given arrays as compared by the $comparator
+     *
+     * @param  array[] ...$args  Arrays to check for elements to exclude
+     * @return Arr
+     */
+    public function differenceWith(...$args)
+    {
+        $fn = array_pop($args);
+
+        $diff = [];
+
+        foreach ($this->value as $v) {
+            foreach ($args as $value) {
+                foreach ($value as $el) if (! $fn($v, $el)) $diff[] = $v;
+            }
+        }
+
+        return new Arr($diff);
+    }
+
+    /**
+     * Returns a new Arr w/ $n elements dropped from the beginning
+     *
+     * @param  int $n  Number of elements to drop
+     */
+    public function drop(int $n)
+    {
+        return new Arr(array_slice($this->value, -1 * $n));
+    }
+
+    /**
+     * Returns a new Arr w/ $n elements dropped from the end
+     *
+     * @param  int $n  Number of elements to drop
+     */
+    public function dropRight(int $n)
+    {
+        return new Arr(array_slice($this->value, 0, $n));
+    }
+
+    /**
+     * @return Arr
+     */
+    public function dropWhile(callable $fn)
+    {
+        $arr = $this->value;
+
+        while (true) {
+            if ($fn($arr[0])) {
+                array_shift($arr);
+            } else {
+                break;
+            }
+        }
+
+        return new Arr($arr);
+    }
+
+    /**
+     * @return Arr
+     */
+    public function dropRightWhile(callable $fn)
+    {
+        $arr = $this->value;
+
+        while (true) {
+            if ($fn($arr[count($arr) - 1])) {
+                array_pop($arr);
+            } else {
+                break;
+            }
+        }
+
+        return new Arr($arr);
+    }
+
+    /**
      * Get the value at a given offset
      *
      * @param  int $offset  Offset to retrieve

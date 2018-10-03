@@ -14,6 +14,19 @@
     ],
     "minimum-stability": "stable",
     "require": {},
+    "autoload": {
+        "psr-4": {
+            "Phlash\\": "src/Phlash"
+        },
+        "files": [
+            "src/Phlash/Phlash.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Phlash\\Tests\\": "test/Phlash"
+        }
+    },
     "scripts": {
         "test": "vendor/bin/phpunit --bootstrap vendor/autoload.php test/Phlash"
     }

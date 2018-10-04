@@ -6,11 +6,6 @@ use Phlash\Func;
 
 class FuncTest extends TestCase
 {
-    public function testItWorks()
-    {
-        $this->assertTrue(true);
-    }
-
     public function testBind()
     {
         $obj = new \stdClass();

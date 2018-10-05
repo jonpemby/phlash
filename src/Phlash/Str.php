@@ -40,13 +40,37 @@ class Str
      */
     public function camelCase()
     {
-        $camelCased = Arr::from(preg_split(static::SPECIAL_CHARACTERS_REGEX, $this->value))->filter(function ($v) {
+        $camelCased = $this->words()->filter(function ($v) {
             return ! empty($v);
         })->map(function ($word, $i) {
-            return $i > 0 ? ucfirst($word) : lcfirst($word);
+            return $i > 0 ? ucfirst(strtolower($word)) : strtolower($word);
         })->join('');
 
         return new Str($camelCased);
+    }
+
+    /**
+     * Format the string as kebab-cased.
+     *
+     * @return Str
+     */
+    public function kebabCase()
+    {
+        $kebabCased = $this->words()->filter(function ($v) {
+            return ! empty($v);
+        })->map(function ($word) {
+            return strtolower($word);
+        })->join('-');
+
+        return new Str($kebabCased);
+    }
+
+    /**
+     * @return Str
+     */
+    public function lowercase()
+    {
+        return new Str(strtolower($this->value));
     }
 
     /**
@@ -65,10 +89,52 @@ class Str
     }
 
     /**
+     * Format the string as snake-cased.
+     *
+     * @return Str
+     */
+    public function snakeCase()
+    {
+        $snakeCased = $this->words()->filter(function ($v) {
+            return ! empty($v);
+        })->map(function ($word) {
+            return strtolower($word);
+        })->join('_');
+
+        return new Str($snakeCased);
+    }
+
+    /**
+     * Format the string as start-cased.
+     *
+     * @return Str
+     */
+    public function startCase()
+    {
+        $startCased = $this->words()->filter(function ($v) {
+            return ! empty($v);
+        })->map(function ($word) {
+            return ucfirst($word);
+        })->join(' ');
+
+        return new Str($startCased);
+    }
+
+    /**
      * @return string
      */
     public function value() : string
     {
         return $this->value;
+    }
+
+    /**
+     * Returns a collection of words in the string.
+     *
+     * @return Arr
+     */
+    public function words()
+    {
+        return new Arr(preg_split(static::SPECIAL_CHARACTERS_REGEX, $this->value));
     }
 }

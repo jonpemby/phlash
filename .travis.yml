@@ -9,3 +9,6 @@ cache: composer
 matrix:
   allow_failures:
     - php: 7.0
+
+script:
+  - composer test

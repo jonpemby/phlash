@@ -312,6 +312,36 @@ class Arr extends AbstractCollection
         return $this->value[count($this->value) - 1];
     }
 
+    public function map(callable $fn)
+    {
+        $arr = [];
+
+        foreach ($this->value as $index => $value)
+            $arr[] = $fn($value, $index);
+
+        return new Arr($arr);
+    }
+
+    public function filter(callable $fn)
+    {
+        $arr = [];
+
+        foreach ($this->value as $index => $value)
+            if ($fn($value, $index)) $arr[] = $value;
+
+        return new Arr($arr);
+    }
+
+    public function join($delim)
+    {
+        return implode($delim, $this->value);
+    }
+
+    public function implode($delim)
+    {
+        return $this->join($delim);
+    }
+
     /**
      * @alias last
      */

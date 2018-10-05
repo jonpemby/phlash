@@ -254,6 +254,18 @@ class ArrTest extends TestCase
         $this->assertEquals(6, $array->tail());
     }
 
+    public function testMap()
+    {
+        $array = new Arr([1, 2, 3, 4, 5, 6]);
+
+        $this->assertSame(
+            [2, 4, 6, 8, 10, 12],
+            $array->map(function ($n) {
+                return 2 * $n;
+            })->value()
+        );
+    }
+
     public function testReverse()
     {
         $array = new Arr([1, 2, 3, 4, 5, 6]);

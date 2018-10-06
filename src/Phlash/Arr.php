@@ -204,16 +204,11 @@ class Arr extends AbstractCollection
      */
     public function find(callable $fn)
     {
-        $found = null;
-
         foreach ($this->value as $v) {
-            if ($fn($v)) {
-                $found = $v;
-                break;
-            }
+            if ($fn($v)) return $v;
         }
 
-        return $found;
+        return null;
     }
 
     /**
@@ -228,7 +223,7 @@ class Arr extends AbstractCollection
     {
         $found = $this->find($fn);
 
-        if (! $found)
+        if (is_null($found))
             throw new NotFoundException;
 
         return $found;
@@ -245,7 +240,7 @@ class Arr extends AbstractCollection
     {
         $found = $this->find($fn);
 
-        if (! $found)
+        if (is_null($found))
             return $default;
 
         return $found;
@@ -259,16 +254,11 @@ class Arr extends AbstractCollection
      */
     public function findIndex(callable $fn)
     {
-        $index = -1;
-
         foreach ($this->value as $i => $v) {
-            if ($fn($v)) {
-                $index = $i;
-                break;
-            }
+            if ($fn($v)) return $i;
         }
 
-        return $index;
+        return -1;
     }
 
     /**
@@ -279,16 +269,11 @@ class Arr extends AbstractCollection
      */
     public function findLastIndex(callable $fn)
     {
-        $index = -1;
-
         for ($i = count($this->value) - 1; $i > -1; $i -= 1) {
-            if ($fn($this->value[$i])) {
-                $index = $i;
-                break;
-            }
+            if ($fn($this->value[$i])) return $i;
         }
 
-        return $index;
+        return -1;
     }
 
     /**

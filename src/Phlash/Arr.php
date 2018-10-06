@@ -131,7 +131,7 @@ class Arr extends AbstractCollection
         $arr = $this->value;
 
         while (true) {
-            if (! count($arr)) break;
+            if (! isset($arr[0])) break;
 
             if ($fn($arr[0])) {
                 array_shift($arr);
@@ -151,7 +151,7 @@ class Arr extends AbstractCollection
         $arr = $this->value;
 
         while (true) {
-            if (! count($arr)) break;
+            if (! isset($arr[0])) break;
 
             if ($fn($arr[count($arr) - 1])) {
                 array_pop($arr);

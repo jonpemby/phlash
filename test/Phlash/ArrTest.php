@@ -223,6 +223,27 @@ class ArrTest extends TestCase
         $this->assertEquals(1, $array->head()); // @alias
     }
 
+    public function testFlatten()
+    {
+        $array = new Arr([1, [2, 3, 4], 5, 6]);
+
+        $this->assertSame(
+            [1, 2, 3, 4, 5, 6],
+            $array->flatten()->value()
+        );
+    }
+
+    public function testFlattenDeep()
+    {
+        $array = new Arr([1, [2, [3, [4, [5, [6]]]]]]);
+
+
+        $this->assertSame(
+            [1, 2, 3, 4, 5, 6],
+            $array->flattenDeep()->value()
+        );
+    }
+
     public function testFrom()
     {
         $array = Arr::from([1, 2, 3, 4, 5, 6]);

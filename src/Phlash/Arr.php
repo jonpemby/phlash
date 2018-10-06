@@ -164,6 +164,19 @@ class Arr extends AbstractCollection
     }
 
     /**
+     * Call a function on each element of the Arr without mutating it.
+     *
+     * @return Arr
+     */
+    public function each(callable $fn)
+    {
+        foreach ($this->value as $index => $element)
+            $fn($element, $index);
+
+        return new Arr($this->value);
+    }
+
+    /**
      * Fill the collection with the value from the $start parameter to the $end.
      *
      * @param  mixed $value  Value with which to fill
@@ -199,6 +212,41 @@ class Arr extends AbstractCollection
                 break;
             }
         }
+
+        return $found;
+    }
+
+    /**
+     * Finds the first value matched by the predicate or throws an exception
+     *
+     * @param  callable $fn
+     * @return mixed
+     *
+     * @throws Phlash\NotFoundException
+     */
+    public function findOrFail(callable $fn)
+    {
+        $found = $this->find($fn);
+
+        if (! $found)
+            throw new NotFoundException;
+
+        return $found;
+    }
+
+    /**
+     * Finds the first value matched by the predicate or returns a provided default value
+     *
+     * @param  callable  $fn
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public function findOrDefault(callable $fn, $default = null)
+    {
+        $found = $this->find($fn);
+
+        if (! $found)
+            return $default;
 
         return $found;
     }
@@ -251,6 +299,48 @@ class Arr extends AbstractCollection
     public function first()
     {
         return $this->value[0] ?: null;
+    }
+
+    /**
+     * Flatten the Arr by one level.
+     *
+     * @return Arr
+     */
+    public function flatten()
+    {
+        $arr = [];
+
+        foreach ($this->value as $element)
+            if (is_array($element)) foreach ($element as $sub)
+                $arr[] = $sub;
+            else
+                $arr[] = $element;
+
+        return new Arr($arr);
+    }
+
+    /**
+     * Recursively flatten the array.
+     *
+     * @return Arr
+     */
+    public function flattenDeep()
+    {
+        $arr = [];
+
+        foreach ($this->value as $element) {
+            if (is_array($element)) {
+                $sub = Arr::from($element)->flattenDeep();
+
+                foreach ($sub as $sub_element) {
+                    $arr[] = $sub_element;
+                }
+            } else {
+                $arr[] = $element;
+            }
+        }
+
+        return new Arr($arr);
     }
 
     /**
@@ -312,6 +402,12 @@ class Arr extends AbstractCollection
         return $this->value[count($this->value) - 1];
     }
 
+    /**
+     * Iterate over each element in the Arr and run a provided callback over each.
+     *
+     * @param  callable  $fn
+     * @return Arr
+     */
     public function map(callable $fn)
     {
         $arr = [];
@@ -322,6 +418,12 @@ class Arr extends AbstractCollection
         return new Arr($arr);
     }
 
+    /**
+     * Filter elements into a new Arr for which the iteratee returns truthy.
+     *
+     * @param  callable  $fn
+     * @return Arr
+     */
     public function filter(callable $fn)
     {
         $arr = [];
@@ -332,11 +434,20 @@ class Arr extends AbstractCollection
         return new Arr($arr);
     }
 
+    /**
+     * Join the elements in the arr into a string by a provided delimiter.
+     *
+     * @param  string  $delim  Provided delimiter
+     * @return string
+     */
     public function join($delim)
     {
         return implode($delim, $this->value);
     }
 
+    /**
+     * @alias join
+     */
     public function implode($delim)
     {
         return $this->join($delim);

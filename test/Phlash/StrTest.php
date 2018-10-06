@@ -67,6 +67,15 @@ class StrTest extends TestCase
         $this->assertSame('Foo Bar', Str::from('--foo--bar')->startCase()->value());
     }
 
+    public function testStudlyCase()
+    {
+        $this->assertSame('FooBar', Str::from('Foo Bar')->studlyCase()->value());
+        $this->assertSame('FooBar', Str::from('__foo__bar')->studlyCase()->value());
+        $this->assertSame('FooBar', Str::from('foo--bar')->studlyCase()->value());
+        $this->assertSame('FooBar', Str::from('foo_bar')->studlyCase()->value());
+        $this->assertSame('FooBar', Str::from('--foo--bar')->studlyCase()->value());
+    }
+
     public function testWords()
     {
         $words = Str::from('hello world')->words();

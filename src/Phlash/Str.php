@@ -121,6 +121,26 @@ class Str
     }
 
     /**
+     * Format the string as studly-cased.
+     *
+     * @return Str
+     */
+    public function studlyCase()
+    {
+        // @note
+        // Since we repeat this pattern of looping over words
+        // w/ each 'case' method let's create a protected
+        // helper method to clean up the code a little
+        $studlyCased = $this->words()->filter(function ($v) {
+            return ! empty($v);
+        })->map(function ($word) {
+            return ucfirst($word);
+        })->join('');
+
+        return new Str($studlyCased);
+    }
+
+    /**
      * @return string
      */
     public function value() : string

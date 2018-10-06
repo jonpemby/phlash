@@ -6,8 +6,16 @@ use Exception;
 
 class NotFoundException extends Exception
 {
-    public function __construct(...$args)
+    /**
+     * @var string  Default error message of the exception
+     */
+    const DEFAULT_MESSAGE = 'Element not found by findOrFail';
+
+    /**
+     * @constructor
+     */
+    public function __construct($message = self::DEFAULT_MESSAGE, ...$args)
     {
-        super("Element not found by findOrFail", ...$args);
+        super($message, ...$args);
     }
 }

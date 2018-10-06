@@ -3,9 +3,11 @@
 namespace Phlash\Support;
 
 use ArrayAccess;
+use BadMethodCallException;
 use Countable;
 use Iterator;
 use JsonSerializable;
+use Phlash\Str;
 
 abstract class AbstractCollection implements ArrayAccess, Countable, Iterator, JsonSerializable
 {
@@ -51,5 +53,20 @@ abstract class AbstractCollection implements ArrayAccess, Countable, Iterator, J
     public function toObject()
     {
         return (object) $this->value;
+    }
+
+    public function __call($method, $args)
+    {
+        if (method_exists($this, $method)) {
+            return $this->{$method}(...$args);
+        }
+
+        $camelCased = Str::from($method)->camelCase()->value();
+
+        if (method_exists($this, $camelCased)) {
+            return $this->{$camelCased}(...$args);
+        }
+
+        throw new BadMethodCallException(sprintf('%s does not exist', __METHOD__));
     }
 }

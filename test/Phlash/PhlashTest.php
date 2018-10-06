@@ -15,4 +15,14 @@ class PhlashTest extends TestCase
         $this->assertInstanceOf(Obj::class, phlash(new \stdClass));
         $this->assertInstanceOf(Str::class, phlash('hello world'));
     }
+
+    public function testDynamicMethodCalls()
+    {
+        $collection = phlash([1, 2, 3, 4, 5, 6]);
+
+        $this->assertSame(
+            [1, 2, 3],
+            $collection->drop_right(3)->value()
+        );
+    }
 }

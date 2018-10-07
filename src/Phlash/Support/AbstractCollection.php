@@ -55,6 +55,15 @@ abstract class AbstractCollection implements ArrayAccess, Countable, Iterator, J
         return (object) $this->value;
     }
 
+    /**
+     * Dynamically assess whether a function exists on the object
+     * and route calls to a snake-cased or studly cased method
+     * to the correct method if it cannot be found first.
+     *
+     * @param  string  $method  Name of the method
+     * @param  arrray  $args    Arguments passed to the method
+     * @throws BadMethodCallException  if a method does not exist
+     */
     public function __call($method, $args)
     {
         if (method_exists($this, $method)) {

@@ -6,7 +6,7 @@ A lodash inspired library of helper functions for PHP.
 
 ## Fits Into Your Existing Code
 
-Phlash is meant to be a helpful addition to your code. How helpful is it if you're forced to deal with the author's biases toward style? Phlash adheres directly to your coding style with the help of PHP's dynamic `__call` method. Phlash automatically checks for a function signature matching the one you called for a myriad of styles. While Phlash is written in the `camelCased` style, it will work with any style.
+Phlash is meant to be a helpful addition to your code. Phlash adheres directly to your coding style with the help of PHP's dynamic `__call` method. Phlash automatically checks for a function signature matching the one you called for a myriad of styles. While Phlash is written in the `camelCased` style, it will work with any style.
 
 For example:
 

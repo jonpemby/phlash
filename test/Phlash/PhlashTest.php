@@ -22,6 +22,11 @@ class PhlashTest extends TestCase
 
         $this->assertSame(
             [1, 2, 3],
+            $collection->dropRight(3)->value()
+        );
+
+        $this->assertSame(
+            [1, 2, 3],
             $collection->drop_right(3)->value()
         );
     }

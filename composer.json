@@ -19,7 +19,7 @@
             "Phlash\\": "src/Phlash"
         },
         "files": [
-            "src/Phlash/Phlash.php"
+            "src/functions/autoload.php"
         ]
     },
     "autoload-dev": {

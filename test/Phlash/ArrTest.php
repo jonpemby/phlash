@@ -371,4 +371,11 @@ class ArrTest extends TestCase
         $this->assertSame([2, 3, 4, 5], $array->slice(1, 5)->value());
         $this->assertSame([4, 5, 6], $array->slice(3)->value());
     }
+
+    public function testUnique()
+    {
+        $array = new Arr([1, 2, 5, 4, 2, 3, 4, 5, 6, 1]);
+
+        $this->assertSame([1, 2, 5, 4, 3, 6], $array->unique()->value());
+    }
 }

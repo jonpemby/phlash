@@ -647,4 +647,27 @@ class Arr extends AbstractCollection
 
         return new Arr($arr);
     }
+
+    /**
+     * Get the values of the Arr that are unique.
+     *
+     * @return Arr
+     */
+    public function unique()
+    {
+        $arr = [];
+
+        $seen = [];
+
+        for ($i = 0; $i < $this->count(); $i += 1) {
+            $value = $this->value[$i];
+
+            if (! isset($seen[$value])) {
+                $arr[] = $value;
+                $seen[$value] = true;
+            }
+        }
+
+        return new Arr($arr);
+    }
 }

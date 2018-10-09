@@ -1,8 +1,8 @@
 <?php
 
-namespace Phlash\Arr;
+namespace Phlash;
 
-use Arr;
+use Phlash\Arr;
 
 /**
  * @see Phlash\Arr::differenceBy

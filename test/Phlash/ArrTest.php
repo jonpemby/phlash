@@ -13,97 +13,6 @@ class ArrTest extends TestCase
         $this->assertCount(0, $array);
     }
 
-    public function testArrAt()
-    {
-        $array = new Arr([1, 2, 3]);
-
-        $this->assertEquals(1, $array->at(0));
-        $this->assertEquals(2, $array->at(1));
-        $this->assertEquals(3, $array->at(2));
-    }
-
-    public function testCompact()
-    {
-        $array = new Arr([0, 1, acos(1.1), false, null, 2, 5, '']);
-
-        $this->assertSame([1, 2, 5], $array->compact()->value());
-    }
-
-    public function testConcat()
-    {
-        $array = new Arr([1, 2, 3]);
-
-        $this->assertSame(
-            [1, 2, 3, 4, 5, 6, 7, 8, 9],
-            $array->concat([4, 5, 6], 7, 8, 9)->value()
-        );
-    }
-
-    public function testArrChunk()
-    {
-        $array = new Arr([1, 2, 3, 4, 5, 6]);
-
-        $chunks = $array->chunk(2);
-
-        $this->assertCount(3, $chunks);
-
-        $this->assertCount(2, $chunks->at(0));
-        $this->assertContains(1, $chunks->at(0));
-        $this->assertContains(2, $chunks->at(0));
-
-        $this->assertCount(2, $chunks->at(1));
-        $this->assertContains(3, $chunks->at(1));
-        $this->assertContains(4, $chunks->at(1));
-
-        $this->assertCount(2, $chunks->at(2));
-        $this->assertContains(5, $chunks->at(2));
-        $this->assertContains(6, $chunks->at(2));
-    }
-
-    public function testArrChunkDoesNotOverflow()
-    {
-        $array = new Arr([1, 2, 3, 4, 5]);
-
-        $chunks = $array->chunk(2);
-
-        $this->assertCount(3, $chunks);
-
-        $subchunk = $chunks->at(2);
-
-        $this->assertCount(1, $subchunk);
-    }
-
-    public function testArrDifference()
-    {
-        $array = new Arr([1, 2]);
-
-        $other = [2, 3];
-
-        $this->assertContains(1, $array->difference($other));
-    }
-
-    public function testArrDifferenceBy()
-    {
-        $array = new Arr([1.2, 2.2]);
-
-        $other = [2.5, 3.1];
-
-        $this->assertContains(1.2, $array->differenceBy($other, function ($value) {
-            return floor($value);
-        }));
-    }
-
-    public function testArrDifferenceWith()
-    {
-        $array = new Arr([['a' => 1, 'b' => 2], ['a' => 2, 'b' => 1]]);
-
-        $other = [['a' => 1, 'b' => 2]];
-
-        $this->assertContains(['a' => 2, 'b' => 1], $array->differenceWith($other, function ($value, $otherValue) {
-            return $value['a'] === $otherValue['a'] && $value['b'] === $otherValue['b'];
-        }));
-    }
-
     public function testArrDrop()
     {
         $array = new Arr([1, 2, 3, 4, 5, 6]);
@@ -219,6 +128,32 @@ class ArrTest extends TestCase
         });
 
         $this->assertEquals(3, $found);
+    }
+
+    /**
+     * @expectedException  Phlash\NotFoundException
+     */
+    public function testFindOrFail()
+    {
+        $array = new Arr([1, 2, 3, 4, 5]);
+
+        $array->findOrFail(function ($v) {
+            return $v === 6;
+        });
+    }
+
+    public function testFindOrDefault()
+    {
+        $array = new Arr(['foo' => 1], ['foo' => 2], ['bar' => 3]);
+
+        $found = $array->findOrDefault(['bar' => 1], function ($v) {
+            if (isset($v['bar']) && $v['bar'] < 3)
+                return true;
+
+            return false;
+        });
+
+        $this->assertSame(['bar' => 1], $found);
     }
 
     public function testFindLastIndex()

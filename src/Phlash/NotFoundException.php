@@ -16,6 +16,6 @@ class NotFoundException extends Exception
      */
     public function __construct($message = self::DEFAULT_MESSAGE, ...$args)
     {
-        super($message, ...$args);
+        parent::__construct($message, ...$args);
     }
 }

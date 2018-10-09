@@ -7,16 +7,16 @@ use Phlash\Arr;
 /**
  * @see Phlash\Arr::findOrDefault
  */
-function findOrDefault($arr, callable $fn, $default = null)
+function findOrDefault($arr, ...$args)
 {
-    return Arr::from($arr)->findOrDefault($fn, $default);
+    return Arr::from($arr)->findOrDefault(...$args);
 }
 
 /**
  * @alias findOrDefault
  */
-function find_or_default($arr, callable $fn, $default = null)
+function find_or_default($arr, ...$args)
 {
-    return findOrDefault($arr, $fn, $default);
+    return findOrDefault($arr, ...$args);
 }
 

@@ -279,8 +279,12 @@ class Arr extends AbstractCollection
      * @param  mixed  $default
      * @return mixed
      */
-    public function findOrDefault(callable $fn, $default = null)
+    public function findOrDefault(...$args)
     {
+        $fn = array_pop($args);
+
+        $default = $args[0] ?? null;
+
         $found = $this->find($fn);
 
         if (is_null($found))
@@ -601,7 +605,7 @@ class Arr extends AbstractCollection
      */
     public function at(int $offset)
     {
-        return $this->value[$offset];
+        return $this->value[$offset] ?? null;
     }
 
     /**

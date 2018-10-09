@@ -534,10 +534,10 @@ class Arr extends AbstractCollection
             }
         }
 
-        for ($i = $i; $i < $a_merged->count(); $i += 1)
+        for ($i; $i < $a_merged->count(); $i += 1)
             $arr[] = $a_merged[$i];
 
-        for ($j = $j; $j < $b_merged->count(); $j += 1)
+        for ($j; $j < $b_merged->count(); $j += 1)
             $arr[] = $b_merged[$j];
 
         return new Arr($arr);

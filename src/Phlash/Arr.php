@@ -22,6 +22,48 @@ class Arr extends AbstractCollection
     }
 
     /**
+     * Remove all falsey values from the Arr
+     *
+     * @return Arr
+     */
+    public function compact()
+    {
+        $arr = [];
+
+        foreach ($this->value as $value) {
+            if (empty($value) || is_nan($value))
+                continue;
+
+            $arr[] = $value;
+        }
+
+        return new Arr($arr);
+    }
+
+    /**
+     * Concatenate this array with additional values and/or arrays
+     *
+     * @param  mixed ...$args  Values or additional arrays to add to this Arr
+     * @return Arr
+     */
+    public function concat(...$args)
+    {
+        $arr = $this->value;
+
+        foreach ($args as $arg) {
+            if (is_array($arg)) {
+                foreach ($arg as $value) {
+                    $arr[] = $value;
+                }
+            } else {
+                $arr[] = $arg;
+            }
+        }
+
+        return new Arr($arr);
+    }
+
+    /**
      * Chunks the Arr into subarrays containing a given number of elements
      *
      * @param  int $pieces  Number of pieces to chunk
@@ -440,11 +482,95 @@ class Arr extends AbstractCollection
     }
 
     /**
+     * Map and reduce a collection of objects or arrays at once to a single value.
+     *
+     * @param  string  $prop
+     * @param  callable  $fn
+     * @return mixed
+     */
+    public function mapReduce($prop = '', callable $fn)
+    {
+        return $this->reduce(function ($value, $carry) use ($prop, $fn) {
+            $mapped = is_array($value) ? $value[$prop] : $value->{$prop};
+
+            return $fn($mapped, $carry);
+        });
+    }
+
+    /**
+     * Sort the Arr with merge sort given a comparison function
+     *
+     * @param  callable $fn  Comparator to use
+     * @return Arr
+     */
+    public function mergeSort(callable $fn)
+    {
+        if ($this->count() <= 1)
+            return new Arr($this->value);
+
+        $median = (int) ($this->count() / 2);
+
+        $a_merged = $this->slice(0, $median)->mergeSort($fn);
+        $b_merged = $this->slice($median)->mergeSort($fn);
+
+        $arr = [];
+
+        $i = 0;
+        $j = 0;
+
+        for ($k = 0; $k < $this->count(); $k += 1) {
+            $a_element = $a_merged[$i] ?? null;
+            $b_element = $b_merged[$j] ?? null;
+
+            if (is_null($a_element) || is_null($b_element))
+                break;
+
+            if ($fn($a_element, $b_element) < 1) {
+                $arr[] = $a_element;
+                $i += 1;
+            } else {
+                $arr[] = $b_element;
+                $j += 1;
+            }
+        }
+
+        for ($i = $i; $i < $a_merged->count(); $i += 1)
+            $arr[] = $a_merged[$i];
+
+        for ($j = $j; $j < $b_merged->count(); $j += 1)
+            $arr[] = $b_merged[$j];
+
+        return new Arr($arr);
+    }
+
+    /**
      * @alias last
      */
     public function tail()
     {
         return $this->last();
+    }
+
+    /**
+     * Reduce an Arr to a single value.
+     *
+     * @param  mixed  $carry  Initial value of the carry
+     * @param  callable $fn  Reducer function to call
+     * @return mixed
+     */
+    public function reduce(...$args)
+    {
+        $arr = $this->value;
+
+        $fn = array_pop($args);
+
+        $result = $args[0] ?? null;
+
+        foreach ($arr as $value) {
+            $result = $fn($value, $result);
+        }
+
+        return $result;
     }
 
     /**
@@ -495,8 +621,30 @@ class Arr extends AbstractCollection
      */
     public function set(int $offset, $value)
     {
-        $this->value[$offset] = $value;
+        $set = $this->value;
 
-        return new Arr($this->value);
+        $set[$offset] = $value;
+
+        return new Arr($set);
+    }
+
+    /**
+     * Slice the Arr from $start to $end
+     *
+     * @param  int  $start
+     * @param  mixed  $end
+     * @return Arr
+     */
+    public function slice($start = 0, $end = null)
+    {
+        $arr = [];
+
+        $end = $end ?: $this->count();
+
+        for ($i = $start; $i < $end; $i += 1) {
+            $arr[] = $this->at($i);
+        }
+
+        return new Arr($arr);
     }
 }

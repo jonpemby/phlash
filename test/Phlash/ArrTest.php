@@ -22,6 +22,23 @@ class ArrTest extends TestCase
         $this->assertEquals(3, $array->at(2));
     }
 
+    public function testCompact()
+    {
+        $array = new Arr([0, 1, acos(1.1), false, null, 2, 5, '']);
+
+        $this->assertSame([1, 2, 5], $array->compact()->value());
+    }
+
+    public function testConcat()
+    {
+        $array = new Arr([1, 2, 3]);
+
+        $this->assertSame(
+            [1, 2, 3, 4, 5, 6, 7, 8, 9],
+            $array->concat([4, 5, 6], 7, 8, 9)->value()
+        );
+    }
+
     public function testArrChunk()
     {
         $array = new Arr([1, 2, 3, 4, 5, 6]);
@@ -287,10 +304,71 @@ class ArrTest extends TestCase
         );
     }
 
+    public function testMapReduce()
+    {
+        $array = new Arr([
+            ['foo' => 2],
+            ['foo' => 4],
+            ['foo' => 6],
+            ['foo' => 8],
+            ['foo' => 10],
+        ]);
+
+        $this->assertEquals(30, $array->mapReduce('foo', function ($value, $carry) {
+            return $value + $carry;
+        }));
+    }
+
+    public function testMergeSort()
+    {
+        $arr = new Arr([5, 2, 1, 4, 3, 7, 8, 10, 9, 6]);
+
+        $this->assertSame(
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            $arr->mergeSort(function ($a, $b) {
+                return $a <=> $b;
+            })->value()
+        );
+    }
+
+    public function testMergeSortWithDuplicates()
+    {
+        $arr = new Arr([1, 5, 2, 3, 2, 5, 1, 1, 4, 5]);
+
+        $this->assertSame(
+            [1, 1, 1, 2, 2, 3, 4, 5, 5, 5],
+            $arr->mergeSort(function ($a, $b) {
+                return $a <=> $b;
+            })->value()
+        );
+    }
+
+    public function testReduce()
+    {
+        $array = new Arr([1, 2, 3, 4, 5, 6]);
+
+        $this->assertEquals(21, $array->reduce(function ($value, $carry) {
+            return $value + $carry;
+        }));
+
+        $this->assertEquals(25, $array->reduce(4, function ($value, $carry) {
+            return $value + $carry;
+        }));
+    }
+
     public function testReverse()
     {
         $array = new Arr([1, 2, 3, 4, 5, 6]);
 
         $this->assertSame([6, 5, 4, 3, 2, 1], $array->reverse()->value());
+    }
+
+    public function testSlice()
+    {
+        $array = new Arr([1, 2, 3, 4, 5, 6]);
+
+        $this->assertSame([1, 2, 3], $array->slice(0, 3)->value());
+        $this->assertSame([2, 3, 4, 5], $array->slice(1, 5)->value());
+        $this->assertSame([4, 5, 6], $array->slice(3)->value());
     }
 }

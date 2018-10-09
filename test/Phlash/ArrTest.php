@@ -13,32 +13,6 @@ class ArrTest extends TestCase
         $this->assertCount(0, $array);
     }
 
-    public function testArrDrop()
-    {
-        $array = new Arr([1, 2, 3, 4, 5, 6]);
-
-        $dropped = $array->drop(3);
-
-        $this->assertCount(3, $dropped);
-
-        $this->assertContains(4, $dropped);
-        $this->assertContains(5, $dropped);
-        $this->assertContains(6, $dropped);
-    }
-
-    public function testDropRight()
-    {
-        $array = new Arr([1, 2, 3, 4, 5, 6]);
-
-        $dropped = $array->dropRight(3);
-
-        $this->assertCount(3, $dropped);
-
-        $this->assertContains(1, $dropped);
-        $this->assertContains(2, $dropped);
-        $this->assertContains(3, $dropped);
-    }
-
     public function testDropWhile()
     {
         $array = new Arr([1, 2, 3, 4, 5, 6]);
@@ -314,3 +288,4 @@ class ArrTest extends TestCase
         $this->assertSame([1, 2, 5, 4, 3, 6], $array->unique()->value());
     }
 }
+

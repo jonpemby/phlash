@@ -1,4 +1,4 @@
-![Phlash](./img/phlash_logo.png)
+![Phlash](./img/phlash_logo@2x.png)
 
 [![Build Status](https://travis-ci.org/jonpemby/phlash.svg?branch=master)](https://travis-ci.org/jonpemby/phlash)
 

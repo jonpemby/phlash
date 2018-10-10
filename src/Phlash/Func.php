@@ -4,7 +4,18 @@ namespace Phlash;
 
 use Closure;
 
-abstract class Func {
+abstract class Func
+{
+    /**
+     * Calls the supplied function bound to the given $thisArg with the array of arguments.
+     *
+     * @return  Result of the applied function
+     */
+    public static function apply($thisArg, $fn, $args = [])
+    {
+        return static::bind($thisArg, $fn)(...$args);
+    }
+
     /**
      * Creates a function that invokes the given $fn bound to the $thisArg.
      *
@@ -15,6 +26,16 @@ abstract class Func {
     public static function bind($thisArg, $fn)
     {
         return Closure::bind($fn, $thisArg);
+    }
+
+    /**
+     * Calls the supplied function bound to the given $thisArg with the comma-separated arguments.
+     *
+     * @return  Result of the called function
+     */
+    public static function call($thisArg, $fn, ...$args)
+    {
+        return static::bind($thisArg, $fn)(...$args);
     }
 
     /**

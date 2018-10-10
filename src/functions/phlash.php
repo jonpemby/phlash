@@ -12,10 +12,11 @@ use Phlash\Str;
  * @param  mixed $arg
  * @return mixed
  */
-function phlash($arg)
+function phlash($arg = null)
 {
     if (is_array($arg))
-        return new Arr($arg);
+        return Arr::isAssociative($arg) ? new Obj($arg)
+                                        : new Arr($arg);
 
     if (is_object($arg))
         return new Obj($arg);

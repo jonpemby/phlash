@@ -688,4 +688,20 @@ class Arr extends AbstractCollection
 
         return new Arr($arr);
     }
+
+    /**
+     * Determine if the given array is associative given the following:
+     * - Empty arrays are sequential
+     * - 0 < string keys in the array makes it associative
+     *
+     * @param  array $arr  array to examine
+     * @return bool
+     */
+    public static function isAssociative(array $arr)
+    {
+        foreach ($arr as $key => $value)
+            if (is_string($key)) return true;
+
+        return false;
+    }
 }

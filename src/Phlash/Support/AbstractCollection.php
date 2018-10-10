@@ -76,6 +76,6 @@ abstract class AbstractCollection implements ArrayAccess, Countable, Iterator, J
             return $this->{$camelCased}(...$args);
         }
 
-        throw new BadMethodCallException(sprintf('%s does not exist', __METHOD__));
+        throw new BadMethodCallException(sprintf('%s does not exist', $method));
     }
 }

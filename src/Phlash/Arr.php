@@ -22,6 +22,20 @@ class Arr extends AbstractCollection
     }
 
     /**
+     * @inheritDoc
+     */
+    public function __get($prop)
+    {
+        if (is_string($prop)) {
+            return $this->map(function ($element) use ($prop) {
+                return is_array($element) ? $element[$prop] : $element->{$prop};
+            });
+        }
+
+        return $this->value[$prop];
+    }
+
+    /**
      * Remove all falsey values from the Arr
      *
      * @return Arr

@@ -37,6 +37,26 @@ fill([], null, 0, 3);
 
 While under the hood Phlash uses objects, Phlash supports your favorite paradigm as best it can.
 
+## Higher Order Property Accessors
+
+Phlash supports higher order property accessors collections. For example:
+
+```php
+$array = phlash([
+    ['foo' => 1],
+	['foo' => 2],
+	['foo' => 3],
+	['foo' => 4],
+	['foo' => 5],
+	['foo' => 6],
+]);
+
+$array->foo;
+// [1, 2, 3, 4, 5, 6]
+```
+
+And yes, this method is chainable to other methods of the same collection. This makes it so much easier to map collections of objects to properties without having to write a map function to handle it for you.
+
 ## Thanks
 
 * Nan Pemberton for supporting my dream to become a programmer and for being by my side no matter what!

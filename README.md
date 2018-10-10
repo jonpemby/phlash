@@ -39,7 +39,7 @@ While under the hood Phlash uses objects, Phlash supports your favorite paradigm
 
 ## Higher Order Property Accessors
 
-Phlash supports higher order property accessors collections. For example:
+Phlash supports higher order property accessors for collections. For example:
 
 ```php
 $array = phlash([

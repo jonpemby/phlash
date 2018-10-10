@@ -177,7 +177,7 @@ class Arr extends AbstractCollection
      */
     public function dropRight(int $n)
     {
-        return new Arr(array_slice($this->value, 0, $n));
+        return new Arr(array_slice($this->value, 0, $this->count() - $n));
     }
 
     /**

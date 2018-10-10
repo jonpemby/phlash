@@ -44,11 +44,11 @@ Phlash supports higher order property accessors collections. For example:
 ```php
 $array = phlash([
     ['foo' => 1],
-	['foo' => 2],
-	['foo' => 3],
-	['foo' => 4],
-	['foo' => 5],
-	['foo' => 6],
+    ['foo' => 2],
+    ['foo' => 3],
+    ['foo' => 4],
+    ['foo' => 5],
+    ['foo' => 6],
 ]);
 
 $array->foo;

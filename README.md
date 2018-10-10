@@ -57,6 +57,10 @@ $array->foo;
 
 And yes, this method is chainable to other methods of the same collection. This makes it so much easier to map collections of objects to properties without having to write a map function to handle it for you.
 
+## Learn More
+
+Documentation site is coming soon!
+
 ## Thanks
 
 * Nan Pemberton for supporting my dream to become a programmer and for being by my side no matter what!

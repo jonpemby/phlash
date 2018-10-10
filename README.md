@@ -25,7 +25,7 @@ Phlash supports a variety of paradigms but most importantly the OO and functiona
 For example:
 
 ```php
-Phlash\Arr::from()->fill(null, 0, 10);
+Phlash\Arr::from()->fill(null, 0, 3);
 // [null, null, null]
 
 phlash([])->fill(null, 0, 3);

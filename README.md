@@ -24,7 +24,7 @@ Every Phlash collection method returns a new collection. No arrays, objects, str
 
 Phlash takes advantage of PHP's copy-on-write variables and assigns the current value to a new variable before mutating it. Nice!
 
-Check it out with PsySh:
+Check it out with ![PsySh](https://psysh.org/):
 
 ```php
 $collection = phlash([1, 2, 3, 4, 5, 6]);

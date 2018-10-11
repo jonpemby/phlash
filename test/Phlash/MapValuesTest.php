@@ -2,6 +2,7 @@
 
 namespace Phlash\Tests;
 
+use function Phlash\mapValues;
 use Phlash\Obj;
 
 class MapValuesTest extends TestCase
@@ -16,7 +17,22 @@ class MapValuesTest extends TestCase
         $this->assertEquals('bar2', $obj->bar);
     }
 
-    //public function testMapValuesFunction()
-    //{
-    //}
+    public function testMapValuesFunction()
+    {
+        $obj = ['foo' => 1, 'bar' => 2];
+
+        $stub = new \stdClass;
+
+        $stub->foo = 'foo1';
+
+        $stub->bar = 'bar2';
+
+        $this->assertEquals(
+            $stub,
+            mapValues($obj, function ($key, $value) {
+                return $key . $value;
+            })
+        );
+    }
 }
+

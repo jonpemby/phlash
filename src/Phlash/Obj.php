@@ -3,6 +3,7 @@
 namespace Phlash;
 
 use Phlash\Support\AbstractCollection;
+use ReflectionObject;
 
 class Obj extends AbstractCollection
 {
@@ -59,6 +60,17 @@ class Obj extends AbstractCollection
     }
 
     /**
+     * Assume the identity of the passed $obj.
+     *
+     * @param  object|array  $obj
+     * @return Obj
+     */
+    public static function as($obj)
+    {
+        return new Obj($obj);
+    }
+
+    /**
      * Given a set of properties, creates a new Obj w/ the same proxy as $this.
      * Also assigns changes to properties to the new proxy for syncing.
      *
@@ -111,6 +123,23 @@ class Obj extends AbstractCollection
     }
 
     /**
+     * Get an array of the method names of this Obj.
+     *
+     * @return Arr
+     */
+    public function methods()
+    {
+        $reflected = is_null($this->proxy) ? null : new ReflectionObject($this->proxy);
+
+        if (! $reflected)
+            return Arr::from([]);
+
+        return Arr::from($reflected->getMethods())->map(function ($method) {
+            return $method->name;
+        });
+    }
+
+    /**
      * Creates a new Obj from the properties absent the given $args.
      *
      * @param  mixed ...$args
@@ -149,6 +178,20 @@ class Obj extends AbstractCollection
     }
 
     /**
+     * The same as `get` except if the $prop matches a method it returns the result.
+     *
+     * @param  string  $prop
+     * @return mixed
+     */
+    public function result($prop)
+    {
+        if (method_exists($this->proxy, $prop))
+            return $this->proxy->{$prop}();
+
+        return $this->value[$prop];
+    }
+
+    /**
      * @return mixed  Returns the object set as the proxy or the object representation of the Obj.
      */
     public function unwrap()
@@ -156,3 +199,4 @@ class Obj extends AbstractCollection
         return $this->proxy ?: (object) $this->value;
     }
 }
+

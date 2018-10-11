@@ -11,11 +11,6 @@ class Bindable
         $this->value = $value;
     }
 
-    public function square()
-    {
-        $this->value = $this->value * $this->value();
-    }
-
     public function value($value = null) : int
     {
         if (is_null($value))

@@ -36,6 +36,18 @@ abstract class AbstractCollection implements ArrayAccess, Countable, Iterator, J
     }
 
     /**
+     * Calls the $interceptor on the collection and returns $this.
+     *
+     * @return $this
+     */
+    public function tap(callable $interceptor)
+    {
+        $interceptor($this->value);
+
+        return $this;
+    }
+
+    /**
      * Returns an array representation of the Obj
      *
      * @return array

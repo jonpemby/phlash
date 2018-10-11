@@ -11,7 +11,7 @@ class Bindable
         $this->value = $value;
     }
 
-    public function value($value = null) : int
+    public function value($value = null)
     {
         if (is_null($value))
             return $this->value;

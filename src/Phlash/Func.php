@@ -64,5 +64,16 @@ abstract class Func
             return $fn($value, ...$args);
         };
     }
+
+    /**
+     * Proxy method calls to the $obj specified by the argument.
+     * Return the provided `$obj` after calling any method.
+     *
+     * @return FuncProxy
+     */
+    public static function proxy($obj)
+    {
+        return new FuncProxy($obj);
+    }
 }
 

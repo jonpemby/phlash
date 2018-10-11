@@ -18,6 +18,24 @@ $collection = phlash([1, 2, 3, 4, 5, 6])->DropRight(3);  // [1, 2, 3]
 
 Will all work!
 
+## Immutability
+
+Every Phlash collection method returns a new collection. No arrays, objects, strings or numbers will ever be mutated.
+
+Phlash takes advantage of PHP's copy-on-write variables and assigns the current value to a new variable before mutating it. Nice!
+
+Check it out with PsySh:
+
+```php
+$collection = phlash([1, 2, 3, 4, 5, 6]);
+// Phlash\Arr {#210}
+
+$another = $collection->map(function ($value) {
+    return $value * 2;
+});
+// Phlash\Arr {#217}
+```
+
 ## Object Oriented With Functional Support
 
 Phlash supports a variety of paradigms but most importantly the OO and functional paradigms. Methods can easily be chained from a new object. If you would rather call a function without having to deal with an object you can!

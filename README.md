@@ -20,9 +20,9 @@ Will all work!
 
 ## Immutability
 
-Every Phlash collection method returns a new collection. No arrays, objects, strings or numbers will ever be mutated.
+Every Phlash collection method returns a new collection. No collection will ever be mutated.
 
-Phlash takes advantage of PHP's copy-on-write variables and assigns the current value to a new variable before mutating it. Nice!
+Phlash takes advantage of PHP's copy-on-write principle and assigns the current value to a new variable before mutating it. Nice!
 
 Check it out with [PsySh](https://psysh.org/):
 

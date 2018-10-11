@@ -2,7 +2,6 @@
 
 namespace Phlash;
 
-use Phlash\Support\AbstractCollection;
 use ReflectionObject;
 
 class Obj extends AbstractCollection

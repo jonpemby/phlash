@@ -1,6 +1,6 @@
 <?php
 
-namespace Phlash\Support;
+namespace Phlash;
 
 trait IteratorTrait
 {

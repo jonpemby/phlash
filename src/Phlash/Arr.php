@@ -2,7 +2,6 @@
 
 namespace Phlash;
 
-use Phlash\Support\AbstractCollection;
 use function implode;
 
 class Arr extends AbstractCollection

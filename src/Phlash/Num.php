@@ -35,7 +35,7 @@ class Num extends AbstractPhlashClass
         if ($higher <= $lower)
             throw new \InvalidArgumentException("Upper bound cannot be less than or equal to lower bound");
 
-        $value = mt_rand($lower, $higher) / $higher;
+        $value = (float) mt_rand($lower, $higher) / $higher;
 
         $value *= $higher;
 

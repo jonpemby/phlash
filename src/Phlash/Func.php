@@ -4,7 +4,7 @@ namespace Phlash;
 
 use Closure;
 
-abstract class Func
+abstract class Func extends AbstractPhlashClass
 {
     /**
      * Calls the supplied function bound to the given $thisArg with the array of arguments.

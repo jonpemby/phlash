@@ -5,6 +5,7 @@ namespace Phlash\Tests;
 use Phlash\Arr;
 use Phlash\Obj;
 use Phlash\Str;
+use Phlash\Num;
 use function Phlash\phlash;
 
 class PhlashTest extends TestCase
@@ -15,6 +16,7 @@ class PhlashTest extends TestCase
         $this->assertInstanceOf(Obj::class, phlash(['foo' => 'bar']));
         $this->assertInstanceOf(Obj::class, phlash(new \stdClass));
         $this->assertInstanceOf(Str::class, phlash('hello world'));
+        $this->assertInstanceOf(Num::class, phlash(6));
     }
 
     public function testDynamicMethodCalls()

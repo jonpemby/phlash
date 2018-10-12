@@ -5,6 +5,7 @@ namespace Phlash;
 use Phlash\Arr;
 use Phlash\Obj;
 use Phlash\Str;
+use Phlash\Num;
 
 /**
  * Returns the appropriate collection for the passed $arg's type.
@@ -23,6 +24,9 @@ function phlash($arg = null)
 
     if (is_string($arg))
         return new Str($arg);
+
+    if (is_int($arg) || is_float($arg))
+        return new Num($arg);
 
     return null;
 }

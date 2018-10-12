@@ -9,7 +9,7 @@ use Iterator;
 use JsonSerializable;
 use Phlash\Str;
 
-abstract class AbstractCollection implements ArrayAccess, Countable, Iterator, JsonSerializable
+abstract class AbstractCollection extends AbstractPhlashClass implements ArrayAccess, Countable, Iterator, JsonSerializable
 {
     use ArrayAccessTrait,
         CountableTrait,

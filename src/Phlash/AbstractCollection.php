@@ -17,6 +17,11 @@ abstract class AbstractCollection extends AbstractPhlashClass implements ArrayAc
         JsonTrait;
 
     /**
+     * @var array  Internal representation of a collection
+     */
+    protected $value;
+
+    /**
      * @param  string  $prop  Key to access
      * @return mixed
      */

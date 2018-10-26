@@ -7,11 +7,6 @@ use function implode;
 class Arr extends AbstractCollection
 {
     /**
-     * @var array  Internal representation of an array
-     */
-    protected $value;
-
-    /**
      * @constructor
      * @param array  $value
      */

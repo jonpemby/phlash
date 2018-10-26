@@ -7,11 +7,6 @@ use ReflectionObject;
 class Obj extends AbstractCollection
 {
     /**
-     * @var array  Internal representation of Obj's properties
-     */
-    protected $value = [];
-
-    /**
      * @var object  Proxy on which to call methods
      */
     protected $proxy = null;

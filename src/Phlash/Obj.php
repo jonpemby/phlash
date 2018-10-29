@@ -186,6 +186,22 @@ class Obj extends AbstractCollection
     }
 
     /**
+     * Create a collection of pairs with `[$key, $value]` from the enumerable keys and values of the object.
+     *
+     * @return Arr
+     */
+    public function toPairs()
+    {
+        $arr = [];
+
+        foreach ($this->value as $key => $value) {
+            $arr[] = [$key, $value];
+        }
+
+        return Arr::from($arr);
+    }
+
+    /**
      * @return mixed  Returns the object set as the proxy or the object representation of the Obj.
      */
     public function unwrap()

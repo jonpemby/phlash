@@ -9,18 +9,5 @@ class ObjTest extends TestCase
     public function testStub()
     {
         $this->assertEquals(new Obj, Obj::stub());
-    }
-
-    public function testAssign()
-    {
-        $obj = new Obj(['first' => 10, 'third' => 20]);
-
-        $other = new Obj(['first' => 1, 'second' => 4]);
-
-        $another = $obj->assign($other);
-
-        $this->assertEquals(1, $another->first);
-        $this->assertEquals(4, $another->second);
-        $this->assertEquals(20, $another->third);
-    }
+    } 
 }

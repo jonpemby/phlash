@@ -7,7 +7,17 @@ use Closure;
 abstract class Func extends AbstractPhlashClass
 {
     /**
-     * Create a new function that invokes the provided `$func` with up to `$n` arguments.
+     * Create a new function that invokes the provided `$fn` with up to 1 argument.
+     *
+     * @return Closure
+     */
+    public static function unary($fn)
+    {
+        return static::ary($fn, 1);
+    }
+
+    /**
+     * Create a new function that invokes the provided `$fn` with up to `$n` arguments.
      *
      * @return Closure
      */

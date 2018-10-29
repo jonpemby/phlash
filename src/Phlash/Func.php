@@ -7,6 +7,21 @@ use Closure;
 abstract class Func extends AbstractPhlashClass
 {
     /**
+     * Create a new function that invokes the provided `$func` with up to `$n` arguments.
+     *
+     * @return Closure
+     */
+    public static function ary($fn, $n)
+    {
+        return function (...$args) use ($fn, $n)
+        {
+            $newArgs = Arr::from($args)->slice(0, $n)->value();
+
+            return $fn(...$newArgs);
+        };
+    }
+
+    /**
      * Calls the supplied function bound to the given $thisArg with the array of arguments.
      *
      * @return  Result of the applied function

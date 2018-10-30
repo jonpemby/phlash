@@ -207,6 +207,16 @@ class Obj extends AbstractCollection
     public function unwrap()
     {
         return $this->proxy ?: (object) $this->value;
+    }    
+
+    /**
+     * Get the value wrapped by the Obj.
+     *
+     * @return mixed
+     */
+    public function value()
+    {
+        return $this->unwrap();
     }
 }
 

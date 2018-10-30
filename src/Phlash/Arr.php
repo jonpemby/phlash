@@ -625,6 +625,14 @@ class Arr extends AbstractCollection
     }
 
     /**
+     * @alias filter
+     */
+    public function remove(callable $fn)
+    {
+        return $this->filter($fn);
+    }
+
+    /**
      * Set the value at a given index
      *
      * @param  int $offset  Offset at which to place the value

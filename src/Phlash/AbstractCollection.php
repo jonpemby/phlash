@@ -94,6 +94,23 @@ abstract class AbstractCollection extends AbstractPhlashClass implements ArrayAc
 
         throw new BadMethodCallException(sprintf('%s does not exist', $method));
     }
+  
+    /**
+     * Checks if the `$fn` returns truthy for all elements.
+     *
+     * @param  callable $fn
+     * @return bool
+     */
+    public function every($fn) : bool
+    {
+        $falsey = Func::negate($fn);
+
+        foreach ($this->value as $key => $value) {
+            if ($falsey($value, $key)) return false;
+        }
+        
+        return true;
+    }
 
     /**
      * Create a new object with keys transformed by calling the specified

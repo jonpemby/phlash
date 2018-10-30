@@ -83,6 +83,22 @@ class Obj extends AbstractCollection
     }
 
     /**
+     * Return a collection of the object's keys.
+     *
+     * @return Arr
+     */
+    public function keys()
+    {
+        $arr = [];
+
+        foreach ($this->value as $key => $_v) {
+            $arr[] = $key;
+        }
+
+        return new Arr($arr);
+    }
+
+    /**
      * Map the keys of an Obj given an $iteratee that receives the $key and $value.
      *
      * @param  callable  $iteratee

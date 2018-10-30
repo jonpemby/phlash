@@ -64,6 +64,22 @@ abstract class Func extends AbstractPhlashClass
     }
 
     /**
+     * Creates a new function that flips tthe order of the provided `$fn`'s arguments.
+     *
+     * @param  callable $fn
+     * @return Closure
+     */
+    public static function flip($fn)
+    {
+        return function (...$args) use ($fn)
+        {
+            $flippedArgs = Arr::from($args)->reverse()->value();
+
+            return $fn(...$flippedArgs);
+        };
+    }
+
+    /**
      * Creates a function that returns the negation of its given predicate.
      *
      * @param  callable $fn

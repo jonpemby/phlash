@@ -116,5 +116,28 @@ abstract class Func extends AbstractPhlashClass
     {
         return new FuncProxy($obj);
     }
+
+    /**
+     * Create a new function that calls the provided function once.
+     * Subsequent calls will return the result of the first call.
+     *
+     * @return Closure
+     */
+    public static function once($fn)
+    {
+        $result = null;
+
+        $func = $fn;
+
+        return function (...$args) use (&$func, &$result)
+        {
+            if ($func) {
+                $result = $func(...$args);
+                $func = null;
+            }
+            
+            return $result;
+        };
+    }
 }
 

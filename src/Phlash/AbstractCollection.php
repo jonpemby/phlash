@@ -7,7 +7,6 @@ use BadMethodCallException;
 use Countable;
 use Iterator;
 use JsonSerializable;
-use Phlash\Str;
 
 abstract class AbstractCollection extends AbstractPhlashClass implements ArrayAccess, Countable, Iterator, JsonSerializable
 {
@@ -95,7 +94,7 @@ abstract class AbstractCollection extends AbstractPhlashClass implements ArrayAc
 
         throw new BadMethodCallException(sprintf('%s does not exist', $method));
     }
-
+  
     /**
      * Checks if the `$fn` returns truthy for all elements.
      *
@@ -111,5 +110,22 @@ abstract class AbstractCollection extends AbstractPhlashClass implements ArrayAc
         }
         
         return true;
+    }
+
+    /**
+     * Create a new object with keys transformed by calling the specified
+     * `$fn` and map-invoking over each value + key of the collection.
+     *
+     * @return Phlash\Obj
+     */
+    public function keyBy(callable $fn)
+    {
+        $obj = [];
+
+        foreach ($this->value as $key => $value) {
+            $obj[$fn($value, $key)] = $value;
+        }
+
+        return new Obj($obj);
     }
 }

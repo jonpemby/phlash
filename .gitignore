@@ -1,4 +1,5 @@
 vendor
 *.swp
+.tags
 .php_cs.cache
 

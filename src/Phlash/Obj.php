@@ -83,6 +83,22 @@ class Obj extends AbstractCollection
     }
 
     /**
+     * Create an object with the inverted properties.
+     *
+     * @return Obj
+     */
+    public function invert()
+    {
+        $arr = [];
+
+        foreach ($this->value as $key => $value) {
+            $arr[$value] = $key;
+        }
+
+        return $this->from($arr);
+    }
+
+    /**
      * Return a collection of the object's keys.
      *
      * @return Arr

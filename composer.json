@@ -17,10 +17,7 @@
     "autoload": {
         "psr-4": {
             "Phlash\\": "src/Phlash"
-        },
-        "files": [
-            "src/functions/autoload.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
